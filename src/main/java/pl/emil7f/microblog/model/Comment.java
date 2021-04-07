@@ -14,9 +14,30 @@ public class Comment {
     private Long userId;
     private String content;
     private LocalDateTime created;
+    private LocalDateTime updated;
+    private Status status;
 
     public Comment() {
         created = LocalDateTime.now();
+        updated = LocalDateTime.now();
+        status = Status.ORIGINAL;
+    }
+
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Long getUserId() {

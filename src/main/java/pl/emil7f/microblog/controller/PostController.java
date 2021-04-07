@@ -16,14 +16,14 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/{id}")
-    public Post getPost(@PathVariable Long id){
-       return postService.getPost(id);
+    @GetMapping("/{postId}")
+    public Post getPost(@PathVariable Long postId) {
+        return postService.getPost(postId);
 
     }
 
     @GetMapping
-    public List<Post> getPosts(){
+    public List<Post> getPosts() {
         return postService.getPosts();
     }
 
@@ -32,14 +32,24 @@ public class PostController {
         return postService.addPost(post);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable Long id){
-        postService.deletePost(id);
+    @DeleteMapping("/{postId}")
+    public void deletePost(@PathVariable Long postId) {
+        postService.deletePost(postId);
     }
 
-    @PostMapping("/{postId}/comment")
-    public void addComment(@PathVariable Long postId, @RequestParam String text){
-        postService.addComment(postId, text);
+    @PostMapping("/{postId}/comments")
+    public Comment addComment(@PathVariable Long postId, @RequestParam String text) {
+        return postService.addComment(postId, text);
+    }
+
+    @PatchMapping("/comments/{commentId}")
+    public Comment editComment(@PathVariable Long commentId, @RequestParam String text) {
+        return postService.editComment(commentId, text);
+    }
+
+    @GetMapping("/comments/{commentId}")
+    public Comment getComment(@PathVariable Long commentId){
+        return postService.getComment(commentId);
     }
 
 }
