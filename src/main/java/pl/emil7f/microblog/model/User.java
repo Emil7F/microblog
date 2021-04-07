@@ -1,23 +1,39 @@
 package pl.emil7f.microblog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "userIdGen", initialValue = 4)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "userIdGen")
     private Long id;
     private String name;
     private String surname;
     private String email;
     private LocalDateTime created;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "owner")
-    private List<Post> posts;
+    private List<Post> posts = new ArrayList<>();
 
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public User() {
+        this.created = LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
