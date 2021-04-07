@@ -1,5 +1,6 @@
 package pl.emil7f.microblog.service;
 
+import pl.emil7f.microblog.model.Comment;
 import pl.emil7f.microblog.model.Post;
 
 import java.util.List;
@@ -12,5 +13,8 @@ public interface PostService {
     List<Post> getPosts();
 
     void deletePost(Long id);
+
+    void addComment(Long postId, String comment);
+
 
 }

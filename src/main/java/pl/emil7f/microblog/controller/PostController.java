@@ -1,6 +1,7 @@
 package pl.emil7f.microblog.controller;
 
 import org.springframework.web.bind.annotation.*;
+import pl.emil7f.microblog.model.Comment;
 import pl.emil7f.microblog.model.Post;
 import pl.emil7f.microblog.service.PostService;
 
@@ -36,5 +37,9 @@ public class PostController {
         postService.deletePost(id);
     }
 
+    @PostMapping("/{postId}/comment")
+    public void addComment(@PathVariable Long postId, @RequestParam String text){
+        postService.addComment(postId, text);
+    }
 
 }

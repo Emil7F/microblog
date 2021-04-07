@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@SequenceGenerator(name= "postIdGen", initialValue = 6)
+@SequenceGenerator(name = "postIdGen", initialValue = 6)
 public class Post {
 
     @Id
@@ -23,10 +25,22 @@ public class Post {
     private LocalDateTime created;
     private LocalDateTime updated;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private List<Comment> comments = new ArrayList<>();
+
     public Post() {
         created = LocalDateTime.now();
         updated = LocalDateTime.now();
         status = Status.ORIGINAL;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public Long getId() {
