@@ -31,14 +31,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/weather/*").permitAll()
-                .anyRequest().hasRole("ADMIN")
+                .antMatchers("/*")
+                .hasAnyRole("USER","ADMIN")
                 .and()
                 .formLogin().permitAll()
                 .and()
                 .logout().permitAll()
                 .and()
                 .csrf().disable();
+
     }
 }
